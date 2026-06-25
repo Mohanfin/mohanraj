@@ -1,0 +1,30 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+#sample sales data
+data={"product":["soap","sampoo","toothpaste","soap","sampoo","oil","soap","toothpaste"],"city":["salem","erode","namakkal","tharmapuri","salem","erode","tharmapuri","namakkal"],"quantity":[10,5,8,15,7,6,12,9],"price":[40,120,90,40,120,150,40,90]}
+#creat data frame
+df=pd.DataFrame(data)
+#calculate sales
+df["sales"]=df["quantity"]*df["price"]
+#display dataset
+print("-----sales data-----")
+print(df)
+#total sales
+print("\ntotal sales=",df["sales"].sum())
+#product wise sales
+print("\nproduct-wise sales")
+print(df.groupby("product")["sales"].sum())
+#city wise sales
+print("\ncity-wise sales")
+print(df.groupby("city")["sales"].sum())
+#highest selling product
+best_product = df.groupby("product")["sales"].sum().idxmax()
+best_sales=df.groupby("product")["sales"].sum().max()
+print("\nbest_product=",best_product)
+print("best_sales=",best_sales)
+#bar chart
+df.groupby("product")["sales"].sum  ().plot(kind="bar")
+plt.title("product-wise sales by sales")
+plt.xlabel("product")
+plt.ylabel("sales")
+plt.show()
